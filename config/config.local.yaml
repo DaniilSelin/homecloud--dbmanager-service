@@ -1,0 +1,10 @@
+db:
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  password: "changeme"
+  dbname: "homecloud"
+  sslmode: "disable"
+grpc:
+  host: "127.0.0.1"
+  port: 50051 
