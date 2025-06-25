@@ -50,6 +50,7 @@ func main() {
 	repo := repository.NewDBRepository(db)
 
 	addr := fmt.Sprintf("%s:%d", cfg.GRPC.Host, cfg.GRPC.Port)
+	logr.Info(context.Background(), "Starting gRPC server", zap.String("address", addr))
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
 		logr.Error(context.Background(), "failed to listen", zap.Error(err))
@@ -57,11 +58,11 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	protos.RegisterDBServiceServer(s, &grpcServer.Server{Repo: repo})
+	protos.RegisterDBServiceServer(s, &grpcServer.Server{Repo: repo, Logger: logr})
 
 	// Graceful shutdown
 	go func() {
-		logr.Info(context.Background(), "gRPC server listening")
+		logr.Info(context.Background(), "gRPC server listening", zap.String("address", addr))
 		if err := s.Serve(lis); err != nil {
 			logr.Error(context.Background(), "failed to serve", zap.Error(err))
 		}

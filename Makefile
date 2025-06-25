@@ -1,18 +1,45 @@
-PROTO_DIR=internal/transport/grpc/protos
-PROTO_FILE=$(PROTO_DIR)/db_manager.proto
-GO_OUT=$(PROTO_DIR)
+APP_NAME=dbmanager
+BINARY=bin/$(APP_NAME)
+SRC=./cmd/server/main.go
+LOG=server.log
 
-.PHONY: proto build run clean
+.PHONY: all build run stop restart logs proto test clean
 
-proto:
-	protoc -I=$(PROTO_DIR) --go_out=$(GO_OUT) --go_opt=paths=source_relative --go-grpc_out=$(GO_OUT) --go-grpc_opt=paths=source_relative $(PROTO_FILE)
+all: build
 
 build:
-	go build -o bin/dbmanager cmd/server/main.go
+	@echo "[BUILD]"
+	go build -o $(BINARY) $(SRC)
 
-run: build
-	./bin/dbmanager
+run:
+	@echo "[RUN]"
+	@nohup $(BINARY) > $(LOG) 2>&1 & echo $$! > $(APP_NAME).pid
+	@sleep 1
+	@echo "Started $(APP_NAME) with PID $$(cat $(APP_NAME).pid)"
+
+stop:
+	@echo "[STOP]"
+	@if [ -f $(APP_NAME).pid ]; then \
+		kill -9 $$(cat $(APP_NAME).pid) && rm -f $(APP_NAME).pid && echo "Stopped $(APP_NAME)"; \
+	else \
+		echo "No PID file found"; \
+	fi
+
+restart: stop build run
+
+logs:
+	@echo "[LOGS]"
+	tail -f $(LOG)
+
+proto:
+	@echo "[PROTO]"
+	cd internal/transport/grpc/protos && \
+	protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative db_manager.proto
+
+test:
+	@echo "[TEST]"
+	go test -v ./test
 
 clean:
-	rm -rf bin/
-	find $(GO_OUT) -name '*.pb.go' -delete 
+	@echo "[CLEAN]"
+	rm -f $(BINARY) $(APP_NAME).pid $(LOG) 
