@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package dbservice;
 
-option go_package = "homecloud-auth-service/internal/transport/grpc/protos";
+option go_package = "homecloud--dbmanager-service/internal/transport/grpc/protos";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";

@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v3.21.12
-// source: db_manager.proto
+// source: internal/transport/grpc/protos/db_manager.proto
 
 package protos
 
@@ -46,7 +46,7 @@ type User struct {
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_db_manager_proto_msgTypes[0]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -58,7 +58,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[0]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -71,7 +71,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{0}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *User) GetId() string {
@@ -197,7 +197,7 @@ type UserExtendedInfo struct {
 
 func (x *UserExtendedInfo) Reset() {
 	*x = UserExtendedInfo{}
-	mi := &file_db_manager_proto_msgTypes[1]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -209,7 +209,7 @@ func (x *UserExtendedInfo) String() string {
 func (*UserExtendedInfo) ProtoMessage() {}
 
 func (x *UserExtendedInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[1]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -222,7 +222,7 @@ func (x *UserExtendedInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserExtendedInfo.ProtoReflect.Descriptor instead.
 func (*UserExtendedInfo) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{1}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UserExtendedInfo) GetUser() *User {
@@ -325,7 +325,7 @@ type UserID struct {
 
 func (x *UserID) Reset() {
 	*x = UserID{}
-	mi := &file_db_manager_proto_msgTypes[2]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -337,7 +337,7 @@ func (x *UserID) String() string {
 func (*UserID) ProtoMessage() {}
 
 func (x *UserID) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[2]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -350,7 +350,7 @@ func (x *UserID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserID.ProtoReflect.Descriptor instead.
 func (*UserID) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{2}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UserID) GetId() string {
@@ -369,7 +369,7 @@ type EmailRequest struct {
 
 func (x *EmailRequest) Reset() {
 	*x = EmailRequest{}
-	mi := &file_db_manager_proto_msgTypes[3]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -381,7 +381,7 @@ func (x *EmailRequest) String() string {
 func (*EmailRequest) ProtoMessage() {}
 
 func (x *EmailRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[3]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -394,7 +394,7 @@ func (x *EmailRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EmailRequest.ProtoReflect.Descriptor instead.
 func (*EmailRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{3}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *EmailRequest) GetEmail() string {
@@ -413,7 +413,7 @@ type UsernameRequest struct {
 
 func (x *UsernameRequest) Reset() {
 	*x = UsernameRequest{}
-	mi := &file_db_manager_proto_msgTypes[4]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -425,7 +425,7 @@ func (x *UsernameRequest) String() string {
 func (*UsernameRequest) ProtoMessage() {}
 
 func (x *UsernameRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[4]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -438,7 +438,7 @@ func (x *UsernameRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UsernameRequest.ProtoReflect.Descriptor instead.
 func (*UsernameRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{4}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UsernameRequest) GetUsername() string {
@@ -458,7 +458,7 @@ type UpdatePasswordRequest struct {
 
 func (x *UpdatePasswordRequest) Reset() {
 	*x = UpdatePasswordRequest{}
-	mi := &file_db_manager_proto_msgTypes[5]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -470,7 +470,7 @@ func (x *UpdatePasswordRequest) String() string {
 func (*UpdatePasswordRequest) ProtoMessage() {}
 
 func (x *UpdatePasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[5]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -483,7 +483,7 @@ func (x *UpdatePasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePasswordRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePasswordRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{5}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdatePasswordRequest) GetId() string {
@@ -510,7 +510,7 @@ type UpdateUsernameRequest struct {
 
 func (x *UpdateUsernameRequest) Reset() {
 	*x = UpdateUsernameRequest{}
-	mi := &file_db_manager_proto_msgTypes[6]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -522,7 +522,7 @@ func (x *UpdateUsernameRequest) String() string {
 func (*UpdateUsernameRequest) ProtoMessage() {}
 
 func (x *UpdateUsernameRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[6]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -535,7 +535,7 @@ func (x *UpdateUsernameRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUsernameRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUsernameRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{6}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdateUsernameRequest) GetId() string {
@@ -562,7 +562,7 @@ type UpdateEmailVerificationRequest struct {
 
 func (x *UpdateEmailVerificationRequest) Reset() {
 	*x = UpdateEmailVerificationRequest{}
-	mi := &file_db_manager_proto_msgTypes[7]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -574,7 +574,7 @@ func (x *UpdateEmailVerificationRequest) String() string {
 func (*UpdateEmailVerificationRequest) ProtoMessage() {}
 
 func (x *UpdateEmailVerificationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[7]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -587,7 +587,7 @@ func (x *UpdateEmailVerificationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateEmailVerificationRequest.ProtoReflect.Descriptor instead.
 func (*UpdateEmailVerificationRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{7}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdateEmailVerificationRequest) GetId() string {
@@ -614,7 +614,7 @@ type UpdateFailedLoginAttemptsRequest struct {
 
 func (x *UpdateFailedLoginAttemptsRequest) Reset() {
 	*x = UpdateFailedLoginAttemptsRequest{}
-	mi := &file_db_manager_proto_msgTypes[8]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -626,7 +626,7 @@ func (x *UpdateFailedLoginAttemptsRequest) String() string {
 func (*UpdateFailedLoginAttemptsRequest) ProtoMessage() {}
 
 func (x *UpdateFailedLoginAttemptsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[8]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -639,7 +639,7 @@ func (x *UpdateFailedLoginAttemptsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateFailedLoginAttemptsRequest.ProtoReflect.Descriptor instead.
 func (*UpdateFailedLoginAttemptsRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{8}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateFailedLoginAttemptsRequest) GetId() string {
@@ -666,7 +666,7 @@ type UpdateLockedUntilRequest struct {
 
 func (x *UpdateLockedUntilRequest) Reset() {
 	*x = UpdateLockedUntilRequest{}
-	mi := &file_db_manager_proto_msgTypes[9]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -678,7 +678,7 @@ func (x *UpdateLockedUntilRequest) String() string {
 func (*UpdateLockedUntilRequest) ProtoMessage() {}
 
 func (x *UpdateLockedUntilRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[9]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -691,7 +691,7 @@ func (x *UpdateLockedUntilRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLockedUntilRequest.ProtoReflect.Descriptor instead.
 func (*UpdateLockedUntilRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{9}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *UpdateLockedUntilRequest) GetId() string {
@@ -718,7 +718,7 @@ type UpdateStorageUsageRequest struct {
 
 func (x *UpdateStorageUsageRequest) Reset() {
 	*x = UpdateStorageUsageRequest{}
-	mi := &file_db_manager_proto_msgTypes[10]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -730,7 +730,7 @@ func (x *UpdateStorageUsageRequest) String() string {
 func (*UpdateStorageUsageRequest) ProtoMessage() {}
 
 func (x *UpdateStorageUsageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[10]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -743,7 +743,7 @@ func (x *UpdateStorageUsageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateStorageUsageRequest.ProtoReflect.Descriptor instead.
 func (*UpdateStorageUsageRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{10}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *UpdateStorageUsageRequest) GetId() string {
@@ -769,7 +769,7 @@ type ExistsResponse struct {
 
 func (x *ExistsResponse) Reset() {
 	*x = ExistsResponse{}
-	mi := &file_db_manager_proto_msgTypes[11]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -781,7 +781,7 @@ func (x *ExistsResponse) String() string {
 func (*ExistsResponse) ProtoMessage() {}
 
 func (x *ExistsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[11]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -794,7 +794,7 @@ func (x *ExistsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExistsResponse.ProtoReflect.Descriptor instead.
 func (*ExistsResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{11}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *ExistsResponse) GetExists() bool {
@@ -838,7 +838,7 @@ type File struct {
 
 func (x *File) Reset() {
 	*x = File{}
-	mi := &file_db_manager_proto_msgTypes[12]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -850,7 +850,7 @@ func (x *File) String() string {
 func (*File) ProtoMessage() {}
 
 func (x *File) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[12]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -863,7 +863,7 @@ func (x *File) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use File.ProtoReflect.Descriptor instead.
 func (*File) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{12}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *File) GetId() string {
@@ -1050,7 +1050,7 @@ type FileID struct {
 
 func (x *FileID) Reset() {
 	*x = FileID{}
-	mi := &file_db_manager_proto_msgTypes[13]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1062,7 +1062,7 @@ func (x *FileID) String() string {
 func (*FileID) ProtoMessage() {}
 
 func (x *FileID) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[13]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1075,7 +1075,7 @@ func (x *FileID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileID.ProtoReflect.Descriptor instead.
 func (*FileID) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{13}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *FileID) GetId() string {
@@ -1095,7 +1095,7 @@ type GetFileByPathRequest struct {
 
 func (x *GetFileByPathRequest) Reset() {
 	*x = GetFileByPathRequest{}
-	mi := &file_db_manager_proto_msgTypes[14]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1107,7 +1107,7 @@ func (x *GetFileByPathRequest) String() string {
 func (*GetFileByPathRequest) ProtoMessage() {}
 
 func (x *GetFileByPathRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[14]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1120,7 +1120,7 @@ func (x *GetFileByPathRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFileByPathRequest.ProtoReflect.Descriptor instead.
 func (*GetFileByPathRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{14}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetFileByPathRequest) GetOwnerId() string {
@@ -1153,7 +1153,7 @@ type ListFilesRequest struct {
 
 func (x *ListFilesRequest) Reset() {
 	*x = ListFilesRequest{}
-	mi := &file_db_manager_proto_msgTypes[15]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1165,7 +1165,7 @@ func (x *ListFilesRequest) String() string {
 func (*ListFilesRequest) ProtoMessage() {}
 
 func (x *ListFilesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[15]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1178,7 +1178,7 @@ func (x *ListFilesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFilesRequest.ProtoReflect.Descriptor instead.
 func (*ListFilesRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{15}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ListFilesRequest) GetParentId() string {
@@ -1249,7 +1249,7 @@ type ListFilesResponse struct {
 
 func (x *ListFilesResponse) Reset() {
 	*x = ListFilesResponse{}
-	mi := &file_db_manager_proto_msgTypes[16]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1261,7 +1261,7 @@ func (x *ListFilesResponse) String() string {
 func (*ListFilesResponse) ProtoMessage() {}
 
 func (x *ListFilesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[16]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1274,7 +1274,7 @@ func (x *ListFilesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFilesResponse.ProtoReflect.Descriptor instead.
 func (*ListFilesResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{16}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ListFilesResponse) GetFiles() []*File {
@@ -1315,7 +1315,7 @@ type ListFilesByParentRequest struct {
 
 func (x *ListFilesByParentRequest) Reset() {
 	*x = ListFilesByParentRequest{}
-	mi := &file_db_manager_proto_msgTypes[17]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1327,7 +1327,7 @@ func (x *ListFilesByParentRequest) String() string {
 func (*ListFilesByParentRequest) ProtoMessage() {}
 
 func (x *ListFilesByParentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[17]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1340,7 +1340,7 @@ func (x *ListFilesByParentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListFilesByParentRequest.ProtoReflect.Descriptor instead.
 func (*ListFilesByParentRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{17}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ListFilesByParentRequest) GetOwnerId() string {
@@ -1366,7 +1366,7 @@ type ListStarredFilesRequest struct {
 
 func (x *ListStarredFilesRequest) Reset() {
 	*x = ListStarredFilesRequest{}
-	mi := &file_db_manager_proto_msgTypes[18]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1378,7 +1378,7 @@ func (x *ListStarredFilesRequest) String() string {
 func (*ListStarredFilesRequest) ProtoMessage() {}
 
 func (x *ListStarredFilesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[18]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1391,7 +1391,7 @@ func (x *ListStarredFilesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListStarredFilesRequest.ProtoReflect.Descriptor instead.
 func (*ListStarredFilesRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{18}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ListStarredFilesRequest) GetOwnerId() string {
@@ -1410,7 +1410,7 @@ type ListTrashedFilesRequest struct {
 
 func (x *ListTrashedFilesRequest) Reset() {
 	*x = ListTrashedFilesRequest{}
-	mi := &file_db_manager_proto_msgTypes[19]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1422,7 +1422,7 @@ func (x *ListTrashedFilesRequest) String() string {
 func (*ListTrashedFilesRequest) ProtoMessage() {}
 
 func (x *ListTrashedFilesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[19]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1435,7 +1435,7 @@ func (x *ListTrashedFilesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListTrashedFilesRequest.ProtoReflect.Descriptor instead.
 func (*ListTrashedFilesRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{19}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *ListTrashedFilesRequest) GetOwnerId() string {
@@ -1455,7 +1455,7 @@ type SearchFilesRequest struct {
 
 func (x *SearchFilesRequest) Reset() {
 	*x = SearchFilesRequest{}
-	mi := &file_db_manager_proto_msgTypes[20]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1467,7 +1467,7 @@ func (x *SearchFilesRequest) String() string {
 func (*SearchFilesRequest) ProtoMessage() {}
 
 func (x *SearchFilesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[20]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1480,7 +1480,7 @@ func (x *SearchFilesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchFilesRequest.ProtoReflect.Descriptor instead.
 func (*SearchFilesRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{20}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *SearchFilesRequest) GetOwnerId() string {
@@ -1506,7 +1506,7 @@ type FileSizeResponse struct {
 
 func (x *FileSizeResponse) Reset() {
 	*x = FileSizeResponse{}
-	mi := &file_db_manager_proto_msgTypes[21]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1518,7 +1518,7 @@ func (x *FileSizeResponse) String() string {
 func (*FileSizeResponse) ProtoMessage() {}
 
 func (x *FileSizeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[21]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1531,7 +1531,7 @@ func (x *FileSizeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileSizeResponse.ProtoReflect.Descriptor instead.
 func (*FileSizeResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{21}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *FileSizeResponse) GetSize() int64 {
@@ -1551,7 +1551,7 @@ type UpdateFileSizeRequest struct {
 
 func (x *UpdateFileSizeRequest) Reset() {
 	*x = UpdateFileSizeRequest{}
-	mi := &file_db_manager_proto_msgTypes[22]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1563,7 +1563,7 @@ func (x *UpdateFileSizeRequest) String() string {
 func (*UpdateFileSizeRequest) ProtoMessage() {}
 
 func (x *UpdateFileSizeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[22]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1576,7 +1576,7 @@ func (x *UpdateFileSizeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateFileSizeRequest.ProtoReflect.Descriptor instead.
 func (*UpdateFileSizeRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{22}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *UpdateFileSizeRequest) GetId() string {
@@ -1603,7 +1603,7 @@ type GetFileTreeRequest struct {
 
 func (x *GetFileTreeRequest) Reset() {
 	*x = GetFileTreeRequest{}
-	mi := &file_db_manager_proto_msgTypes[23]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1615,7 +1615,7 @@ func (x *GetFileTreeRequest) String() string {
 func (*GetFileTreeRequest) ProtoMessage() {}
 
 func (x *GetFileTreeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[23]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1628,7 +1628,7 @@ func (x *GetFileTreeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFileTreeRequest.ProtoReflect.Descriptor instead.
 func (*GetFileTreeRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{23}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetFileTreeRequest) GetOwnerId() string {
@@ -1663,7 +1663,7 @@ type FileRevision struct {
 
 func (x *FileRevision) Reset() {
 	*x = FileRevision{}
-	mi := &file_db_manager_proto_msgTypes[24]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1675,7 +1675,7 @@ func (x *FileRevision) String() string {
 func (*FileRevision) ProtoMessage() {}
 
 func (x *FileRevision) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[24]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1688,7 +1688,7 @@ func (x *FileRevision) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileRevision.ProtoReflect.Descriptor instead.
 func (*FileRevision) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{24}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *FileRevision) GetId() string {
@@ -1763,7 +1763,7 @@ type RevisionID struct {
 
 func (x *RevisionID) Reset() {
 	*x = RevisionID{}
-	mi := &file_db_manager_proto_msgTypes[25]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1775,7 +1775,7 @@ func (x *RevisionID) String() string {
 func (*RevisionID) ProtoMessage() {}
 
 func (x *RevisionID) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[25]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1788,7 +1788,7 @@ func (x *RevisionID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RevisionID.ProtoReflect.Descriptor instead.
 func (*RevisionID) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{25}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *RevisionID) GetId() string {
@@ -1807,7 +1807,7 @@ type ListRevisionsResponse struct {
 
 func (x *ListRevisionsResponse) Reset() {
 	*x = ListRevisionsResponse{}
-	mi := &file_db_manager_proto_msgTypes[26]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1819,7 +1819,7 @@ func (x *ListRevisionsResponse) String() string {
 func (*ListRevisionsResponse) ProtoMessage() {}
 
 func (x *ListRevisionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[26]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1832,7 +1832,7 @@ func (x *ListRevisionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListRevisionsResponse.ProtoReflect.Descriptor instead.
 func (*ListRevisionsResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{26}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *ListRevisionsResponse) GetRevisions() []*FileRevision {
@@ -1852,7 +1852,7 @@ type GetRevisionRequest struct {
 
 func (x *GetRevisionRequest) Reset() {
 	*x = GetRevisionRequest{}
-	mi := &file_db_manager_proto_msgTypes[27]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1864,7 +1864,7 @@ func (x *GetRevisionRequest) String() string {
 func (*GetRevisionRequest) ProtoMessage() {}
 
 func (x *GetRevisionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[27]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1877,7 +1877,7 @@ func (x *GetRevisionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRevisionRequest.ProtoReflect.Descriptor instead.
 func (*GetRevisionRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{27}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetRevisionRequest) GetFileId() string {
@@ -1910,7 +1910,7 @@ type FilePermission struct {
 
 func (x *FilePermission) Reset() {
 	*x = FilePermission{}
-	mi := &file_db_manager_proto_msgTypes[28]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1922,7 +1922,7 @@ func (x *FilePermission) String() string {
 func (*FilePermission) ProtoMessage() {}
 
 func (x *FilePermission) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[28]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1935,7 +1935,7 @@ func (x *FilePermission) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FilePermission.ProtoReflect.Descriptor instead.
 func (*FilePermission) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{28}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *FilePermission) GetId() string {
@@ -1996,7 +1996,7 @@ type PermissionID struct {
 
 func (x *PermissionID) Reset() {
 	*x = PermissionID{}
-	mi := &file_db_manager_proto_msgTypes[29]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2008,7 +2008,7 @@ func (x *PermissionID) String() string {
 func (*PermissionID) ProtoMessage() {}
 
 func (x *PermissionID) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[29]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2021,7 +2021,7 @@ func (x *PermissionID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionID.ProtoReflect.Descriptor instead.
 func (*PermissionID) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{29}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *PermissionID) GetId() string {
@@ -2040,7 +2040,7 @@ type ListPermissionsResponse struct {
 
 func (x *ListPermissionsResponse) Reset() {
 	*x = ListPermissionsResponse{}
-	mi := &file_db_manager_proto_msgTypes[30]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2052,7 +2052,7 @@ func (x *ListPermissionsResponse) String() string {
 func (*ListPermissionsResponse) ProtoMessage() {}
 
 func (x *ListPermissionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[30]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2065,7 +2065,7 @@ func (x *ListPermissionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListPermissionsResponse.ProtoReflect.Descriptor instead.
 func (*ListPermissionsResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{30}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *ListPermissionsResponse) GetPermissions() []*FilePermission {
@@ -2086,7 +2086,7 @@ type CheckPermissionRequest struct {
 
 func (x *CheckPermissionRequest) Reset() {
 	*x = CheckPermissionRequest{}
-	mi := &file_db_manager_proto_msgTypes[31]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2098,7 +2098,7 @@ func (x *CheckPermissionRequest) String() string {
 func (*CheckPermissionRequest) ProtoMessage() {}
 
 func (x *CheckPermissionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[31]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2111,7 +2111,7 @@ func (x *CheckPermissionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckPermissionRequest.ProtoReflect.Descriptor instead.
 func (*CheckPermissionRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{31}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CheckPermissionRequest) GetFileId() string {
@@ -2144,7 +2144,7 @@ type PermissionResponse struct {
 
 func (x *PermissionResponse) Reset() {
 	*x = PermissionResponse{}
-	mi := &file_db_manager_proto_msgTypes[32]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2156,7 +2156,7 @@ func (x *PermissionResponse) String() string {
 func (*PermissionResponse) ProtoMessage() {}
 
 func (x *PermissionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[32]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2169,7 +2169,7 @@ func (x *PermissionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionResponse.ProtoReflect.Descriptor instead.
 func (*PermissionResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{32}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *PermissionResponse) GetHasPermission() bool {
@@ -2190,7 +2190,7 @@ type UpdateFileMetadataRequest struct {
 
 func (x *UpdateFileMetadataRequest) Reset() {
 	*x = UpdateFileMetadataRequest{}
-	mi := &file_db_manager_proto_msgTypes[33]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2202,7 +2202,7 @@ func (x *UpdateFileMetadataRequest) String() string {
 func (*UpdateFileMetadataRequest) ProtoMessage() {}
 
 func (x *UpdateFileMetadataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[33]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2215,7 +2215,7 @@ func (x *UpdateFileMetadataRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateFileMetadataRequest.ProtoReflect.Descriptor instead.
 func (*UpdateFileMetadataRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{33}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *UpdateFileMetadataRequest) GetFileId() string {
@@ -2241,7 +2241,7 @@ type FileMetadataResponse struct {
 
 func (x *FileMetadataResponse) Reset() {
 	*x = FileMetadataResponse{}
-	mi := &file_db_manager_proto_msgTypes[34]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2253,7 +2253,7 @@ func (x *FileMetadataResponse) String() string {
 func (*FileMetadataResponse) ProtoMessage() {}
 
 func (x *FileMetadataResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[34]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2266,7 +2266,7 @@ func (x *FileMetadataResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileMetadataResponse.ProtoReflect.Descriptor instead.
 func (*FileMetadataResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{34}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *FileMetadataResponse) GetMetadata() string {
@@ -2287,7 +2287,7 @@ type MoveFileRequest struct {
 
 func (x *MoveFileRequest) Reset() {
 	*x = MoveFileRequest{}
-	mi := &file_db_manager_proto_msgTypes[35]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2299,7 +2299,7 @@ func (x *MoveFileRequest) String() string {
 func (*MoveFileRequest) ProtoMessage() {}
 
 func (x *MoveFileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[35]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2312,7 +2312,7 @@ func (x *MoveFileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MoveFileRequest.ProtoReflect.Descriptor instead.
 func (*MoveFileRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{35}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *MoveFileRequest) GetFileId() string {
@@ -2340,7 +2340,7 @@ type CopyFileRequest struct {
 
 func (x *CopyFileRequest) Reset() {
 	*x = CopyFileRequest{}
-	mi := &file_db_manager_proto_msgTypes[36]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2352,7 +2352,7 @@ func (x *CopyFileRequest) String() string {
 func (*CopyFileRequest) ProtoMessage() {}
 
 func (x *CopyFileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[36]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2365,7 +2365,7 @@ func (x *CopyFileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CopyFileRequest.ProtoReflect.Descriptor instead.
 func (*CopyFileRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{36}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *CopyFileRequest) GetFileId() string {
@@ -2399,7 +2399,7 @@ type RenameFileRequest struct {
 
 func (x *RenameFileRequest) Reset() {
 	*x = RenameFileRequest{}
-	mi := &file_db_manager_proto_msgTypes[37]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2411,7 +2411,7 @@ func (x *RenameFileRequest) String() string {
 func (*RenameFileRequest) ProtoMessage() {}
 
 func (x *RenameFileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[37]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2424,7 +2424,7 @@ func (x *RenameFileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RenameFileRequest.ProtoReflect.Descriptor instead.
 func (*RenameFileRequest) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{37}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *RenameFileRequest) GetFileId() string {
@@ -2451,7 +2451,7 @@ type IntegrityResponse struct {
 
 func (x *IntegrityResponse) Reset() {
 	*x = IntegrityResponse{}
-	mi := &file_db_manager_proto_msgTypes[38]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2463,7 +2463,7 @@ func (x *IntegrityResponse) String() string {
 func (*IntegrityResponse) ProtoMessage() {}
 
 func (x *IntegrityResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[38]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2476,7 +2476,7 @@ func (x *IntegrityResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IntegrityResponse.ProtoReflect.Descriptor instead.
 func (*IntegrityResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{38}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *IntegrityResponse) GetIsIntegrityVerified() bool {
@@ -2495,7 +2495,7 @@ type ChecksumsResponse struct {
 
 func (x *ChecksumsResponse) Reset() {
 	*x = ChecksumsResponse{}
-	mi := &file_db_manager_proto_msgTypes[39]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2507,7 +2507,7 @@ func (x *ChecksumsResponse) String() string {
 func (*ChecksumsResponse) ProtoMessage() {}
 
 func (x *ChecksumsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_db_manager_proto_msgTypes[39]
+	mi := &file_internal_transport_grpc_protos_db_manager_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2520,7 +2520,7 @@ func (x *ChecksumsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChecksumsResponse.ProtoReflect.Descriptor instead.
 func (*ChecksumsResponse) Descriptor() ([]byte, []int) {
-	return file_db_manager_proto_rawDescGZIP(), []int{39}
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *ChecksumsResponse) GetChecksums() map[string]string {
@@ -2530,11 +2530,11 @@ func (x *ChecksumsResponse) GetChecksums() map[string]string {
 	return nil
 }
 
-var File_db_manager_proto protoreflect.FileDescriptor
+var File_internal_transport_grpc_protos_db_manager_proto protoreflect.FileDescriptor
 
-const file_db_manager_proto_rawDesc = "" +
+const file_internal_transport_grpc_protos_db_manager_proto_rawDesc = "" +
 	"\n" +
-	"\x10db_manager.proto\x12\tdbservice\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xb2\x04\n" +
+	"/internal/transport/grpc/protos/db_manager.proto\x12\tdbservice\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xb2\x04\n" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
@@ -2791,22 +2791,22 @@ const file_db_manager_proto_rawDesc = "" +
 	"\n" +
 	"RenameFile\x12\x1c.dbservice.RenameFileRequest\x1a\x16.google.protobuf.Empty\"\x00\x12H\n" +
 	"\x13VerifyFileIntegrity\x12\x11.dbservice.FileID\x1a\x1c.dbservice.IntegrityResponse\"\x00\x12K\n" +
-	"\x16CalculateFileChecksums\x12\x11.dbservice.FileID\x1a\x1c.dbservice.ChecksumsResponse\"\x00B7Z5homecloud-auth-service/internal/transport/grpc/protosb\x06proto3"
+	"\x16CalculateFileChecksums\x12\x11.dbservice.FileID\x1a\x1c.dbservice.ChecksumsResponse\"\x00B=Z;homecloud--dbmanager-service/internal/transport/grpc/protosb\x06proto3"
 
 var (
-	file_db_manager_proto_rawDescOnce sync.Once
-	file_db_manager_proto_rawDescData []byte
+	file_internal_transport_grpc_protos_db_manager_proto_rawDescOnce sync.Once
+	file_internal_transport_grpc_protos_db_manager_proto_rawDescData []byte
 )
 
-func file_db_manager_proto_rawDescGZIP() []byte {
-	file_db_manager_proto_rawDescOnce.Do(func() {
-		file_db_manager_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_db_manager_proto_rawDesc), len(file_db_manager_proto_rawDesc)))
+func file_internal_transport_grpc_protos_db_manager_proto_rawDescGZIP() []byte {
+	file_internal_transport_grpc_protos_db_manager_proto_rawDescOnce.Do(func() {
+		file_internal_transport_grpc_protos_db_manager_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_internal_transport_grpc_protos_db_manager_proto_rawDesc), len(file_internal_transport_grpc_protos_db_manager_proto_rawDesc)))
 	})
-	return file_db_manager_proto_rawDescData
+	return file_internal_transport_grpc_protos_db_manager_proto_rawDescData
 }
 
-var file_db_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
-var file_db_manager_proto_goTypes = []any{
+var file_internal_transport_grpc_protos_db_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
+var file_internal_transport_grpc_protos_db_manager_proto_goTypes = []any{
 	(*User)(nil),                             // 0: dbservice.User
 	(*UserExtendedInfo)(nil),                 // 1: dbservice.UserExtendedInfo
 	(*UserID)(nil),                           // 2: dbservice.UserID
@@ -2852,7 +2852,7 @@ var file_db_manager_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),            // 42: google.protobuf.Timestamp
 	(*emptypb.Empty)(nil),                    // 43: google.protobuf.Empty
 }
-var file_db_manager_proto_depIdxs = []int32{
+var file_internal_transport_grpc_protos_db_manager_proto_depIdxs = []int32{
 	42, // 0: dbservice.User.created_at:type_name -> google.protobuf.Timestamp
 	42, // 1: dbservice.User.updated_at:type_name -> google.protobuf.Timestamp
 	42, // 2: dbservice.User.locked_until:type_name -> google.protobuf.Timestamp
@@ -2973,26 +2973,26 @@ var file_db_manager_proto_depIdxs = []int32{
 	0,  // [0:17] is the sub-list for field type_name
 }
 
-func init() { file_db_manager_proto_init() }
-func file_db_manager_proto_init() {
-	if File_db_manager_proto != nil {
+func init() { file_internal_transport_grpc_protos_db_manager_proto_init() }
+func file_internal_transport_grpc_protos_db_manager_proto_init() {
+	if File_internal_transport_grpc_protos_db_manager_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_db_manager_proto_rawDesc), len(file_db_manager_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_transport_grpc_protos_db_manager_proto_rawDesc), len(file_internal_transport_grpc_protos_db_manager_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   42,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_db_manager_proto_goTypes,
-		DependencyIndexes: file_db_manager_proto_depIdxs,
-		MessageInfos:      file_db_manager_proto_msgTypes,
+		GoTypes:           file_internal_transport_grpc_protos_db_manager_proto_goTypes,
+		DependencyIndexes: file_internal_transport_grpc_protos_db_manager_proto_depIdxs,
+		MessageInfos:      file_internal_transport_grpc_protos_db_manager_proto_msgTypes,
 	}.Build()
-	File_db_manager_proto = out.File
-	file_db_manager_proto_goTypes = nil
-	file_db_manager_proto_depIdxs = nil
+	File_internal_transport_grpc_protos_db_manager_proto = out.File
+	file_internal_transport_grpc_protos_db_manager_proto_goTypes = nil
+	file_internal_transport_grpc_protos_db_manager_proto_depIdxs = nil
 }
