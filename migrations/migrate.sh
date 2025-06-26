@@ -1,11 +1,20 @@
 #!/bin/bash
 set -e
 
-# Конфигурация
-DB_NAME="homecloud"
-DB_USER="postgres"
-DB_HOST="localhost"
-DB_PORT="5432"
+CONFIG_FILE="config/config.local.yaml"
+
+# Функция для чтения значения из YAML
+get_config_value() {
+  local key="$1"
+  grep "^\s*${key}:" "$CONFIG_FILE" | head -n1 | awk -F': ' '{print $2}' | tr -d '"'
+}
+
+# Если переменные окружения не заданы, читаем из config.local.yaml
+DB_NAME="${DB_NAME:-$(get_config_value 'name')}"
+DB_USER="${DB_USER:-$(get_config_value 'user')}"
+DB_PASSWORD="${DB_PASSWORD:-$(get_config_value 'password')}"
+DB_HOST="${DB_HOST:-$(get_config_value 'host')}"
+DB_PORT="${DB_PORT:-$(get_config_value 'port')}"
 MIGRATIONS_DIR="$(dirname "$0")"
 
 # Цвета для вывода
@@ -34,12 +43,7 @@ log_error() {
 
 # Функция для подключения к базе данных
 psql_connect() {
-    local db=$1
-    if [ "$db" = "postgres" ]; then
-        psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d postgres "$@"
-    else
-        psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME "$@"
-    fi
+    PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER "$@"
 }
 
 # Функция для создания таблицы миграций
@@ -134,10 +138,10 @@ migrate_up() {
     
     # Создание базы данных и схемы
     log_info "Создание базы данных..."
-    psql_connect postgres -f "$MIGRATIONS_DIR/000_create_database.sql"
+    psql_connect -d postgres -f "$MIGRATIONS_DIR/000_create_database.sql"
     
     log_info "Создание схемы..."
-    psql_connect $DB_NAME -f "$MIGRATIONS_DIR/001_create_schema.sql"
+    psql_connect -d "$DB_NAME" -f "$MIGRATIONS_DIR/001_create_schema.sql"
     
     # Создание таблицы миграций
     create_migrations_table
