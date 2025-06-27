@@ -1,5 +1,5 @@
 db:
-  host: "localhost"
+  host: "postgres"
   port: 5432
   user: "postgres"
   password: "changeme"
@@ -7,4 +7,4 @@ db:
   sslmode: "disable"
 grpc:
   host: "0.0.0.0"
-  port: 50051 
+  port: 50051

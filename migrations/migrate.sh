@@ -3,6 +3,25 @@ set -e
 
 CONFIG_FILE="config/config.local.yaml"
 
+# Отладочная информация
+echo "=== DEBUG INFO ==="
+echo "CONFIG_FILE: $CONFIG_FILE"
+echo "Current directory: $(pwd)"
+echo "Files in current directory:"
+ls -la
+echo "Config file exists: $([ -f "$CONFIG_FILE" ] && echo "YES" || echo "NO")"
+if [ -f "$CONFIG_FILE" ]; then
+    echo "Config file contents:"
+    cat "$CONFIG_FILE"
+fi
+echo "Environment variables:"
+echo "DB_NAME: $DB_NAME"
+echo "DB_USER: $DB_USER"
+echo "DB_PASSWORD: $DB_PASSWORD"
+echo "DB_HOST: $DB_HOST"
+echo "DB_PORT: $DB_PORT"
+echo "=================="
+
 # Функция для чтения значения из YAML
 get_config_value() {
   local key="$1"
@@ -10,7 +29,7 @@ get_config_value() {
 }
 
 # Если переменные окружения не заданы, читаем из config.local.yaml
-DB_NAME="${DB_NAME:-$(get_config_value 'name')}"
+DB_NAME="${DB_NAME:-$(get_config_value 'dbname')}"
 DB_USER="${DB_USER:-$(get_config_value 'user')}"
 DB_PASSWORD="${DB_PASSWORD:-$(get_config_value 'password')}"
 DB_HOST="${DB_HOST:-$(get_config_value 'host')}"
@@ -136,12 +155,21 @@ show_status() {
 migrate_up() {
     log_info "Применение всех миграций..."
     
+    # Проверка подключения к базе данных
+    log_info "Проверка подключения к PostgreSQL..."
+    if ! psql_connect -d postgres -c "SELECT 1;" > /dev/null 2>&1; then
+        log_error "Не удается подключиться к PostgreSQL"
+        log_error "DB_HOST: $DB_HOST, DB_PORT: $DB_PORT, DB_USER: $DB_USER"
+        exit 1
+    fi
+    log_success "Подключение к PostgreSQL успешно"
+    
     # Создание базы данных и схемы
     log_info "Создание базы данных..."
-    psql_connect -d postgres -f "$MIGRATIONS_DIR/000_create_database.sql"
+    psql_connect -d postgres -f "$MIGRATIONS_DIR/000_create_database.up.sql"
     
     log_info "Создание схемы..."
-    psql_connect -d "$DB_NAME" -f "$MIGRATIONS_DIR/001_create_schema.sql"
+    psql_connect -d "$DB_NAME" -f "$MIGRATIONS_DIR/001_create_schema.up.sql"
     
     # Создание таблицы миграций
     create_migrations_table
@@ -149,7 +177,7 @@ migrate_up() {
     # Применение всех .up.sql файлов
     for file in $(find "$MIGRATIONS_DIR" -name "*.up.sql" | sort); do
         # Пропускаем первые две миграции, так как они уже применены
-        if [[ "$file" == *"000_create_database.sql" ]] || [[ "$file" == *"001_create_schema.sql" ]]; then
+        if [[ "$file" == *"000_create_database.up.sql" ]] || [[ "$file" == *"001_create_schema.up.sql" ]]; then
             continue
         fi
         apply_migration "$file"
