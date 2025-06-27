@@ -1,5 +1,5 @@
 -- Создание основной таблицы files
-CREATE TABLE files (
+CREATE TABLE homecloud.files (
     -- Уникальный идентификатор файла
     id               UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
 
@@ -7,7 +7,7 @@ CREATE TABLE files (
     owner_id         UUID        NOT NULL,
 
     -- Папка/родитель (может быть NULL для корня)
-    parent_id        UUID        REFERENCES files(id),
+    parent_id        UUID        REFERENCES homecloud.files(id),
 
     -- Имя и расширение
     name             TEXT        NOT NULL,
@@ -51,15 +51,15 @@ CREATE TABLE files (
 );
 
 -- Индексы для оптимизации запросов
-CREATE INDEX idx_files_owner_id ON files(owner_id);
-CREATE INDEX idx_files_parent_id ON files(parent_id);
-CREATE INDEX idx_files_is_trashed ON files(is_trashed);
-CREATE INDEX idx_files_starred ON files(starred);
-CREATE INDEX idx_files_created_at ON files(created_at);
-CREATE INDEX idx_files_updated_at ON files(updated_at);
-CREATE INDEX idx_files_name ON files(name);
-CREATE INDEX idx_files_mime_type ON files(mime_type);
+CREATE INDEX idx_files_owner_id ON homecloud.files(owner_id);
+CREATE INDEX idx_files_parent_id ON homecloud.files(parent_id);
+CREATE INDEX idx_files_is_trashed ON homecloud.files(is_trashed);
+CREATE INDEX idx_files_starred ON homecloud.files(starred);
+CREATE INDEX idx_files_created_at ON homecloud.files(created_at);
+CREATE INDEX idx_files_updated_at ON homecloud.files(updated_at);
+CREATE INDEX idx_files_name ON homecloud.files(name);
+CREATE INDEX idx_files_mime_type ON homecloud.files(mime_type);
 
 -- Уникальный индекс для предотвращения дублирования файлов в одной папке
-CREATE UNIQUE INDEX idx_files_unique_name_parent ON files(name, parent_id) WHERE parent_id IS NOT NULL;
-CREATE UNIQUE INDEX idx_files_unique_name_root ON files(name) WHERE parent_id IS NULL; 
+CREATE UNIQUE INDEX idx_files_unique_name_parent ON homecloud.files(name, parent_id) WHERE parent_id IS NOT NULL;
+CREATE UNIQUE INDEX idx_files_unique_name_root ON homecloud.files(name) WHERE parent_id IS NULL; 

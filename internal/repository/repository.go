@@ -123,7 +123,7 @@ func (r *dbRepository) CheckUsernameExists(ctx context.Context, username string)
 
 // File operations
 func (r *dbRepository) CreateFile(ctx context.Context, file *models.File) (string, error) {
-	query := `INSERT INTO files (owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link)
+	query := `INSERT INTO homecloud.files (owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW(), NOW(), $14, $15, $16, $17, $18, $19, $20, $21, $22) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
@@ -133,7 +133,7 @@ func (r *dbRepository) CreateFile(ctx context.Context, file *models.File) (strin
 }
 
 func (r *dbRepository) GetFileByID(ctx context.Context, id string) (*models.File, error) {
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE id=$1`
+	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE id=$1`
 	file := &models.File{}
 	var parentID, fileExtension, md5Checksum, sha256Checksum, revisionID, indexableText, thumbnailLink, webViewLink, webContentLink, iconLink sql.NullString
 	var trashedAt, lastViewedAt sql.NullTime
@@ -183,12 +183,18 @@ func (r *dbRepository) GetFileByID(ctx context.Context, id string) (*models.File
 }
 
 func (r *dbRepository) GetFileByPath(ctx context.Context, ownerID, path string) (*models.File, error) {
+	// Если путь пустой, ищем корневую папку
+	searchName := path
+	if path == "" {
+		searchName = "root"
+	}
+
 	// Простая реализация - поиск по имени файла в корне
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE owner_id=$1 AND name=$2 AND parent_id IS NULL`
+	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE owner_id=$1 AND name=$2 AND parent_id IS NULL`
 	file := &models.File{}
 	var parentID, fileExtension, md5Checksum, sha256Checksum, revisionID, indexableText, thumbnailLink, webViewLink, webContentLink, iconLink sql.NullString
 	var trashedAt, lastViewedAt sql.NullTime
-	err := r.db.QueryRowContext(ctx, query, ownerID, path).Scan(
+	err := r.db.QueryRowContext(ctx, query, ownerID, searchName).Scan(
 		&file.ID, &file.OwnerID, &parentID, &file.Name, &fileExtension, &file.MimeType, &file.StoragePath, &file.Size, &md5Checksum, &sha256Checksum, &file.IsFolder, &file.IsTrashed, &trashedAt, &file.Starred, &file.CreatedAt, &file.UpdatedAt, &lastViewedAt, &file.ViewedByMe, &file.Version, &revisionID, &indexableText, &thumbnailLink, &webViewLink, &webContentLink, &iconLink,
 	)
 	if err != nil {
@@ -234,7 +240,7 @@ func (r *dbRepository) GetFileByPath(ctx context.Context, ownerID, path string) 
 }
 
 func (r *dbRepository) UpdateFile(ctx context.Context, file *models.File) error {
-	query := `UPDATE files SET owner_id=$1, parent_id=$2, name=$3, file_extension=$4, mime_type=$5, storage_path=$6, size=$7, md5_checksum=$8, sha256_checksum=$9, is_folder=$10, is_trashed=$11, trashed_at=$12, starred=$13, updated_at=NOW(), last_viewed_at=$14, viewed_by_me=$15, version=$16, revision_id=$17, indexable_text=$18, thumbnail_link=$19, web_view_link=$20, web_content_link=$21, icon_link=$22 WHERE id=$23`
+	query := `UPDATE homecloud.files SET owner_id=$1, parent_id=$2, name=$3, file_extension=$4, mime_type=$5, storage_path=$6, size=$7, md5_checksum=$8, sha256_checksum=$9, is_folder=$10, is_trashed=$11, trashed_at=$12, starred=$13, updated_at=NOW(), last_viewed_at=$14, viewed_by_me=$15, version=$16, revision_id=$17, indexable_text=$18, thumbnail_link=$19, web_view_link=$20, web_content_link=$21, icon_link=$22 WHERE id=$23`
 	_, err := r.db.ExecContext(ctx, query,
 		file.OwnerID, file.ParentID, file.Name, file.FileExtension, file.MimeType, file.StoragePath, file.Size, file.MD5Checksum, file.SHA256Checksum, file.IsFolder, file.IsTrashed, file.TrashedAt, file.Starred, file.LastViewedAt, file.ViewedByMe, file.Version, file.RevisionID, file.IndexableText, file.ThumbnailLink, file.WebViewLink, file.WebContentLink, file.IconLink, file.ID,
 	)
@@ -242,23 +248,22 @@ func (r *dbRepository) UpdateFile(ctx context.Context, file *models.File) error 
 }
 
 func (r *dbRepository) DeleteFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `DELETE FROM files WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `DELETE FROM homecloud.files WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) SoftDeleteFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET is_trashed=true, trashed_at=NOW(), updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET is_trashed=true, trashed_at=NOW(), updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) RestoreFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET is_trashed=false, trashed_at=NULL, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET is_trashed=false, trashed_at=NULL, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, isTrashed, starred bool, limit, offset int, orderBy, orderDir string) ([]*models.File, int64, error) {
-	// Build base query
-	baseQuery := `FROM files WHERE owner_id=$1`
+	baseQuery := `FROM homecloud.files WHERE owner_id=$1`
 	args := []interface{}{ownerID}
 	argIndex := 2
 
@@ -272,7 +277,7 @@ func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, 
 
 	if isTrashed {
 		baseQuery += fmt.Sprintf(" AND is_trashed=$%d", argIndex)
-		args = append(args, isTrashed)
+		args = append(args, true)
 		argIndex++
 	} else {
 		baseQuery += " AND is_trashed=false"
@@ -280,32 +285,43 @@ func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, 
 
 	if starred {
 		baseQuery += fmt.Sprintf(" AND starred=$%d", argIndex)
-		args = append(args, starred)
+		args = append(args, true)
 		argIndex++
 	}
 
-	// Get total count
-	countQuery := `SELECT COUNT(*) ` + baseQuery
+	// Получаем общее количество
+	countQuery := "SELECT COUNT(*) " + baseQuery
 	var total int64
 	err := r.db.QueryRowContext(ctx, countQuery, args...).Scan(&total)
 	if err != nil {
 		return nil, 0, err
 	}
 
-	// Build order clause
-	if orderBy == "" {
-		orderBy = "created_at"
-	}
-	if orderDir == "" {
-		orderDir = "DESC"
-	}
-	orderClause := fmt.Sprintf(" ORDER BY %s %s", orderBy, orderDir)
+	// Получаем файлы
+	selectQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link ` + baseQuery
 
-	// Get files
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link ` + baseQuery + orderClause + fmt.Sprintf(" LIMIT $%d OFFSET $%d", argIndex, argIndex+1)
-	args = append(args, limit, offset)
+	// Добавляем сортировку
+	if orderBy != "" {
+		selectQuery += " ORDER BY " + orderBy
+		if orderDir != "" {
+			selectQuery += " " + orderDir
+		}
+	} else {
+		selectQuery += " ORDER BY updated_at DESC"
+	}
 
-	rows, err := r.db.QueryContext(ctx, query, args...)
+	// Добавляем лимит и оффсет
+	if limit > 0 {
+		selectQuery += fmt.Sprintf(" LIMIT $%d", argIndex)
+		args = append(args, limit)
+		argIndex++
+	}
+	if offset > 0 {
+		selectQuery += fmt.Sprintf(" OFFSET $%d", argIndex)
+		args = append(args, offset)
+	}
+
+	rows, err := r.db.QueryContext(ctx, selectQuery, args...)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -380,7 +396,7 @@ func (r *dbRepository) ListTrashedFiles(ctx context.Context, ownerID string) ([]
 }
 
 func (r *dbRepository) SearchFiles(ctx context.Context, ownerID, query string) ([]*models.File, error) {
-	searchQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE owner_id=$1 AND is_trashed=false AND (name ILIKE $2 OR indexable_text ILIKE $2) ORDER BY updated_at DESC`
+	searchQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE owner_id=$1 AND is_trashed=false AND (name ILIKE $2 OR indexable_text ILIKE $2) ORDER BY updated_at DESC`
 	rows, err := r.db.QueryContext(ctx, searchQuery, ownerID, "%"+query+"%")
 	if err != nil {
 		return nil, err
@@ -442,17 +458,17 @@ func (r *dbRepository) SearchFiles(ctx context.Context, ownerID, query string) (
 
 func (r *dbRepository) GetFileSize(ctx context.Context, id string) (int64, error) {
 	var size int64
-	err := r.db.QueryRowContext(ctx, `SELECT size FROM files WHERE id=$1`, id).Scan(&size)
+	err := r.db.QueryRowContext(ctx, `SELECT size FROM homecloud.files WHERE id=$1`, id).Scan(&size)
 	return size, err
 }
 
 func (r *dbRepository) UpdateFileSize(ctx context.Context, id string, size int64) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET size=$1, updated_at=NOW() WHERE id=$2`, size, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET size=$1, updated_at=NOW() WHERE id=$2`, size, id)
 	return err
 }
 
 func (r *dbRepository) UpdateLastViewed(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET last_viewed_at=NOW(), viewed_by_me=true, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET last_viewed_at=NOW(), viewed_by_me=true, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
@@ -464,7 +480,7 @@ func (r *dbRepository) GetFileTree(ctx context.Context, ownerID, rootID string) 
 
 // File revision operations
 func (r *dbRepository) CreateRevision(ctx context.Context, revision *models.FileRevision) (string, error) {
-	query := `INSERT INTO file_revisions (file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id)
+	query := `INSERT INTO homecloud.file_revisions (file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id)
 		VALUES ($1, $2, $3, $4, NOW(), $5, $6, $7) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
@@ -474,7 +490,7 @@ func (r *dbRepository) CreateRevision(ctx context.Context, revision *models.File
 }
 
 func (r *dbRepository) GetRevisions(ctx context.Context, fileID string) ([]*models.FileRevision, error) {
-	query := `SELECT id, file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id FROM file_revisions WHERE file_id=$1 ORDER BY revision_id DESC`
+	query := `SELECT id, file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id FROM homecloud.file_revisions WHERE file_id=$1 ORDER BY revision_id DESC`
 	rows, err := r.db.QueryContext(ctx, query, fileID)
 	if err != nil {
 		return nil, err
@@ -484,21 +500,11 @@ func (r *dbRepository) GetRevisions(ctx context.Context, fileID string) ([]*mode
 	var revisions []*models.FileRevision
 	for rows.Next() {
 		revision := &models.FileRevision{}
-		var md5Checksum, mimeType, userID sql.NullString
 		err := rows.Scan(
-			&revision.ID, &revision.FileID, &revision.RevisionID, &md5Checksum, &revision.Size, &revision.CreatedAt, &revision.StoragePath, &mimeType, &userID,
+			&revision.ID, &revision.FileID, &revision.RevisionID, &revision.MD5Checksum, &revision.Size, &revision.CreatedAt, &revision.StoragePath, &revision.MimeType, &revision.UserID,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if md5Checksum.Valid {
-			revision.MD5Checksum = &md5Checksum.String
-		}
-		if mimeType.Valid {
-			revision.MimeType = &mimeType.String
-		}
-		if userID.Valid {
-			revision.UserID = &userID.String
 		}
 		revisions = append(revisions, revision)
 	}
@@ -507,35 +513,25 @@ func (r *dbRepository) GetRevisions(ctx context.Context, fileID string) ([]*mode
 }
 
 func (r *dbRepository) GetRevision(ctx context.Context, fileID string, revisionID int64) (*models.FileRevision, error) {
-	query := `SELECT id, file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id FROM file_revisions WHERE file_id=$1 AND revision_id=$2`
+	query := `SELECT id, file_id, revision_id, md5_checksum, size, created_at, storage_path, mime_type, user_id FROM homecloud.file_revisions WHERE file_id=$1 AND revision_id=$2`
 	revision := &models.FileRevision{}
-	var md5Checksum, mimeType, userID sql.NullString
 	err := r.db.QueryRowContext(ctx, query, fileID, revisionID).Scan(
-		&revision.ID, &revision.FileID, &revision.RevisionID, &md5Checksum, &revision.Size, &revision.CreatedAt, &revision.StoragePath, &mimeType, &userID,
+		&revision.ID, &revision.FileID, &revision.RevisionID, &revision.MD5Checksum, &revision.Size, &revision.CreatedAt, &revision.StoragePath, &revision.MimeType, &revision.UserID,
 	)
 	if err != nil {
 		return nil, err
-	}
-	if md5Checksum.Valid {
-		revision.MD5Checksum = &md5Checksum.String
-	}
-	if mimeType.Valid {
-		revision.MimeType = &mimeType.String
-	}
-	if userID.Valid {
-		revision.UserID = &userID.String
 	}
 	return revision, nil
 }
 
 func (r *dbRepository) DeleteRevision(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `DELETE FROM file_revisions WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `DELETE FROM homecloud.file_revisions WHERE id=$1`, id)
 	return err
 }
 
 // File permission operations
 func (r *dbRepository) CreatePermission(ctx context.Context, permission *models.FilePermission) (string, error) {
-	query := `INSERT INTO file_permissions (file_id, grantee_id, grantee_type, role, allow_share, created_at)
+	query := `INSERT INTO homecloud.file_permissions (file_id, grantee_id, grantee_type, role, allow_share, created_at)
 		VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
@@ -545,7 +541,7 @@ func (r *dbRepository) CreatePermission(ctx context.Context, permission *models.
 }
 
 func (r *dbRepository) GetPermissions(ctx context.Context, fileID string) ([]*models.FilePermission, error) {
-	query := `SELECT id, file_id, grantee_id, grantee_type, role, allow_share, created_at FROM file_permissions WHERE file_id=$1 ORDER BY created_at DESC`
+	query := `SELECT id, file_id, grantee_id, grantee_type, role, allow_share, created_at FROM homecloud.file_permissions WHERE file_id=$1 ORDER BY created_at DESC`
 	rows, err := r.db.QueryContext(ctx, query, fileID)
 	if err != nil {
 		return nil, err
@@ -555,15 +551,11 @@ func (r *dbRepository) GetPermissions(ctx context.Context, fileID string) ([]*mo
 	var permissions []*models.FilePermission
 	for rows.Next() {
 		permission := &models.FilePermission{}
-		var granteeID sql.NullString
 		err := rows.Scan(
-			&permission.ID, &permission.FileID, &granteeID, &permission.GranteeType, &permission.Role, &permission.AllowShare, &permission.CreatedAt,
+			&permission.ID, &permission.FileID, &permission.GranteeID, &permission.GranteeType, &permission.Role, &permission.AllowShare, &permission.CreatedAt,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if granteeID.Valid {
-			permission.GranteeID = &granteeID.String
 		}
 		permissions = append(permissions, permission)
 	}
@@ -572,7 +564,7 @@ func (r *dbRepository) GetPermissions(ctx context.Context, fileID string) ([]*mo
 }
 
 func (r *dbRepository) UpdatePermission(ctx context.Context, permission *models.FilePermission) error {
-	query := `UPDATE file_permissions SET grantee_id=$1, grantee_type=$2, role=$3, allow_share=$4 WHERE id=$5`
+	query := `UPDATE homecloud.file_permissions SET grantee_id=$1, grantee_type=$2, role=$3, allow_share=$4 WHERE id=$5`
 	_, err := r.db.ExecContext(ctx, query,
 		permission.GranteeID, permission.GranteeType, permission.Role, permission.AllowShare, permission.ID,
 	)
@@ -580,12 +572,12 @@ func (r *dbRepository) UpdatePermission(ctx context.Context, permission *models.
 }
 
 func (r *dbRepository) DeletePermission(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `DELETE FROM file_permissions WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `DELETE FROM homecloud.file_permissions WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) CheckPermission(ctx context.Context, fileID, userID, requiredRole string) (bool, error) {
-	query := `SELECT EXISTS(SELECT 1 FROM file_permissions WHERE file_id=$1 AND grantee_id=$2 AND role=$3)`
+	query := `SELECT EXISTS(SELECT 1 FROM homecloud.file_permissions WHERE file_id=$1 AND grantee_id=$2 AND role=$3)`
 	var exists bool
 	err := r.db.QueryRowContext(ctx, query, fileID, userID, requiredRole).Scan(&exists)
 	return exists, err
@@ -593,35 +585,32 @@ func (r *dbRepository) CheckPermission(ctx context.Context, fileID, userID, requ
 
 // File metadata operations
 func (r *dbRepository) UpdateFileMetadata(ctx context.Context, fileID, metadata string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET indexable_text=$1, updated_at=NOW() WHERE id=$2`, metadata, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET indexable_text=$1, updated_at=NOW() WHERE id=$2`, metadata, fileID)
 	return err
 }
 
 func (r *dbRepository) GetFileMetadata(ctx context.Context, fileID string) (string, error) {
-	var metadata sql.NullString
-	err := r.db.QueryRowContext(ctx, `SELECT indexable_text FROM files WHERE id=$1`, fileID).Scan(&metadata)
+	var metadata string
+	err := r.db.QueryRowContext(ctx, `SELECT indexable_text FROM homecloud.files WHERE id=$1`, fileID).Scan(&metadata)
 	if err != nil {
 		return "", err
 	}
-	if metadata.Valid {
-		return metadata.String, nil
-	}
-	return "", nil
+	return metadata, nil
 }
 
 // File operations (star, move, copy, rename)
 func (r *dbRepository) StarFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET starred=true, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET starred=true, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) UnstarFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET starred=false, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET starred=false, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) MoveFile(ctx context.Context, fileID, newParentID string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET parent_id=$1, updated_at=NOW() WHERE id=$2`, newParentID, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET parent_id=$1, updated_at=NOW() WHERE id=$2`, newParentID, fileID)
 	return err
 }
 
@@ -655,15 +644,14 @@ func (r *dbRepository) CopyFile(ctx context.Context, fileID, newParentID, newNam
 }
 
 func (r *dbRepository) RenameFile(ctx context.Context, fileID, newName string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET name=$1, updated_at=NOW() WHERE id=$2`, newName, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET name=$1, updated_at=NOW() WHERE id=$2`, newName, fileID)
 	return err
 }
 
 // File integrity operations
 func (r *dbRepository) VerifyFileIntegrity(ctx context.Context, id string) (bool, error) {
-	// Простая реализация - проверяем наличие файла
 	var exists bool
-	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM files WHERE id=$1)`, id).Scan(&exists)
+	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM homecloud.files WHERE id=$1)`, id).Scan(&exists)
 	return exists, err
 }
 

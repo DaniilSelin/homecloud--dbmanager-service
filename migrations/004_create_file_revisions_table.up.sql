@@ -1,7 +1,7 @@
 -- Создание таблицы ревизий файлов
-CREATE TABLE file_revisions (
+CREATE TABLE homecloud.file_revisions (
     id            UUID      PRIMARY KEY DEFAULT gen_random_uuid(),
-    file_id       UUID      NOT NULL REFERENCES files(id) ON DELETE CASCADE,
+    file_id       UUID      NOT NULL REFERENCES homecloud.files(id) ON DELETE CASCADE,
     revision_id   BIGINT    NOT NULL,  -- в том числе для Google-стиля
     md5_checksum  TEXT,
     size          BIGINT,
@@ -12,10 +12,10 @@ CREATE TABLE file_revisions (
 );
 
 -- Индексы для оптимизации запросов
-CREATE INDEX idx_file_revisions_file_id ON file_revisions(file_id);
-CREATE INDEX idx_file_revisions_revision_id ON file_revisions(revision_id);
-CREATE INDEX idx_file_revisions_created_at ON file_revisions(created_at);
-CREATE INDEX idx_file_revisions_user_id ON file_revisions(user_id);
+CREATE INDEX idx_file_revisions_file_id ON homecloud.file_revisions(file_id);
+CREATE INDEX idx_file_revisions_revision_id ON homecloud.file_revisions(revision_id);
+CREATE INDEX idx_file_revisions_created_at ON homecloud.file_revisions(created_at);
+CREATE INDEX idx_file_revisions_user_id ON homecloud.file_revisions(user_id);
 
 -- Уникальный индекс для предотвращения дублирования ревизий
-CREATE UNIQUE INDEX idx_file_revisions_unique ON file_revisions(file_id, revision_id); 
+CREATE UNIQUE INDEX idx_file_revisions_unique ON homecloud.file_revisions(file_id, revision_id); 
