@@ -19,7 +19,7 @@ func NewDBRepository(db *sql.DB) interfaces.DBRepository {
 }
 
 func (r *dbRepository) CreateUser(ctx context.Context, user *models.User) (string, error) {
-	query := `INSERT INTO dbmanager.users (email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at)
+	query := `INSERT INTO homecloud.users (email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at)
 		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,NOW(),NOW(),$9,$10,$11) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
@@ -29,7 +29,7 @@ func (r *dbRepository) CreateUser(ctx context.Context, user *models.User) (strin
 }
 
 func (r *dbRepository) GetUserByID(ctx context.Context, id string) (*models.User, error) {
-	query := `SELECT id, email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at FROM dbmanager.users WHERE id=$1`
+	query := `SELECT id, email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at FROM homecloud.users WHERE id=$1`
 	user := &models.User{}
 	var lockedUntil, lastLogin sql.NullTime
 	err := r.db.QueryRowContext(ctx, query, id).Scan(
@@ -48,7 +48,7 @@ func (r *dbRepository) GetUserByID(ctx context.Context, id string) (*models.User
 }
 
 func (r *dbRepository) GetUserByEmail(ctx context.Context, email string) (*models.User, error) {
-	query := `SELECT id, email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at FROM dbmanager.users WHERE email=$1`
+	query := `SELECT id, email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at FROM homecloud.users WHERE email=$1`
 	user := &models.User{}
 	var lockedUntil, lastLogin sql.NullTime
 	err := r.db.QueryRowContext(ctx, query, email).Scan(
@@ -67,7 +67,7 @@ func (r *dbRepository) GetUserByEmail(ctx context.Context, email string) (*model
 }
 
 func (r *dbRepository) UpdateUser(ctx context.Context, user *models.User) error {
-	query := `UPDATE dbmanager.users SET email=$1, username=$2, password_hash=$3, is_active=$4, is_email_verified=$5, role=$6, storage_quota=$7, used_space=$8, updated_at=NOW(), failed_login_attempts=$9, locked_until=$10, last_login_at=$11 WHERE id=$12`
+	query := `UPDATE homecloud.users SET email=$1, username=$2, password_hash=$3, is_active=$4, is_email_verified=$5, role=$6, storage_quota=$7, used_space=$8, updated_at=NOW(), failed_login_attempts=$9, locked_until=$10, last_login_at=$11 WHERE id=$12`
 	_, err := r.db.ExecContext(ctx, query,
 		user.Email, user.Username, user.PasswordHash, user.IsActive, user.IsEmailVerified, user.Role, user.StorageQuota, user.UsedSpace, user.FailedLoginAttempts, user.LockedUntil, user.LastLogin, user.ID,
 	)
@@ -75,55 +75,55 @@ func (r *dbRepository) UpdateUser(ctx context.Context, user *models.User) error 
 }
 
 func (r *dbRepository) UpdatePassword(ctx context.Context, id, passwordHash string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET password_hash=$1, updated_at=NOW() WHERE id=$2`, passwordHash, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET password_hash=$1, updated_at=NOW() WHERE id=$2`, passwordHash, id)
 	return err
 }
 
 func (r *dbRepository) UpdateUsername(ctx context.Context, id, username string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET username=$1, updated_at=NOW() WHERE id=$2`, username, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET username=$1, updated_at=NOW() WHERE id=$2`, username, id)
 	return err
 }
 
 func (r *dbRepository) UpdateEmailVerification(ctx context.Context, id string, isVerified bool) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET is_email_verified=$1, updated_at=NOW() WHERE id=$2`, isVerified, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET is_email_verified=$1, updated_at=NOW() WHERE id=$2`, isVerified, id)
 	return err
 }
 
 func (r *dbRepository) UpdateLastLogin(ctx context.Context, id string, lastLogin time.Time) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET last_login_at=$1, updated_at=NOW() WHERE id=$2`, lastLogin, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET last_login_at=$1, updated_at=NOW() WHERE id=$2`, lastLogin, id)
 	return err
 }
 
 func (r *dbRepository) UpdateFailedLoginAttempts(ctx context.Context, id string, attempts int) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET failed_login_attempts=$1, updated_at=NOW() WHERE id=$2`, attempts, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET failed_login_attempts=$1, updated_at=NOW() WHERE id=$2`, attempts, id)
 	return err
 }
 
 func (r *dbRepository) UpdateLockedUntil(ctx context.Context, id string, lockedUntil time.Time) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET locked_until=$1, updated_at=NOW() WHERE id=$2`, lockedUntil, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET locked_until=$1, updated_at=NOW() WHERE id=$2`, lockedUntil, id)
 	return err
 }
 
 func (r *dbRepository) UpdateStorageUsage(ctx context.Context, id string, usedSpace int64) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE dbmanager.users SET used_space=$1, updated_at=NOW() WHERE id=$2`, usedSpace, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.users SET used_space=$1, updated_at=NOW() WHERE id=$2`, usedSpace, id)
 	return err
 }
 
 func (r *dbRepository) CheckEmailExists(ctx context.Context, email string) (bool, error) {
 	var exists bool
-	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM dbmanager.users WHERE email=$1)`, email).Scan(&exists)
+	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM homecloud.users WHERE email=$1)`, email).Scan(&exists)
 	return exists, err
 }
 
 func (r *dbRepository) CheckUsernameExists(ctx context.Context, username string) (bool, error) {
 	var exists bool
-	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM dbmanager.users WHERE username=$1)`, username).Scan(&exists)
+	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM homecloud.users WHERE username=$1)`, username).Scan(&exists)
 	return exists, err
 }
 
 // File operations
 func (r *dbRepository) CreateFile(ctx context.Context, file *models.File) (string, error) {
-	query := `INSERT INTO files (owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link)
+	query := `INSERT INTO homecloud.files (owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW(), NOW(), $14, $15, $16, $17, $18, $19, $20, $21, $22) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
@@ -133,7 +133,7 @@ func (r *dbRepository) CreateFile(ctx context.Context, file *models.File) (strin
 }
 
 func (r *dbRepository) GetFileByID(ctx context.Context, id string) (*models.File, error) {
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE id=$1`
+	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE id=$1`
 	file := &models.File{}
 	var parentID, fileExtension, md5Checksum, sha256Checksum, revisionID, indexableText, thumbnailLink, webViewLink, webContentLink, iconLink sql.NullString
 	var trashedAt, lastViewedAt sql.NullTime
@@ -184,7 +184,7 @@ func (r *dbRepository) GetFileByID(ctx context.Context, id string) (*models.File
 
 func (r *dbRepository) GetFileByPath(ctx context.Context, ownerID, path string) (*models.File, error) {
 	// Простая реализация - поиск по имени файла в корне
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE owner_id=$1 AND name=$2 AND parent_id IS NULL`
+	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE owner_id=$1 AND name=$2 AND parent_id IS NULL`
 	file := &models.File{}
 	var parentID, fileExtension, md5Checksum, sha256Checksum, revisionID, indexableText, thumbnailLink, webViewLink, webContentLink, iconLink sql.NullString
 	var trashedAt, lastViewedAt sql.NullTime
@@ -234,7 +234,7 @@ func (r *dbRepository) GetFileByPath(ctx context.Context, ownerID, path string) 
 }
 
 func (r *dbRepository) UpdateFile(ctx context.Context, file *models.File) error {
-	query := `UPDATE files SET owner_id=$1, parent_id=$2, name=$3, file_extension=$4, mime_type=$5, storage_path=$6, size=$7, md5_checksum=$8, sha256_checksum=$9, is_folder=$10, is_trashed=$11, trashed_at=$12, starred=$13, updated_at=NOW(), last_viewed_at=$14, viewed_by_me=$15, version=$16, revision_id=$17, indexable_text=$18, thumbnail_link=$19, web_view_link=$20, web_content_link=$21, icon_link=$22 WHERE id=$23`
+	query := `UPDATE homecloud.files SET owner_id=$1, parent_id=$2, name=$3, file_extension=$4, mime_type=$5, storage_path=$6, size=$7, md5_checksum=$8, sha256_checksum=$9, is_folder=$10, is_trashed=$11, trashed_at=$12, starred=$13, updated_at=NOW(), last_viewed_at=$14, viewed_by_me=$15, version=$16, revision_id=$17, indexable_text=$18, thumbnail_link=$19, web_view_link=$20, web_content_link=$21, icon_link=$22 WHERE id=$23`
 	_, err := r.db.ExecContext(ctx, query,
 		file.OwnerID, file.ParentID, file.Name, file.FileExtension, file.MimeType, file.StoragePath, file.Size, file.MD5Checksum, file.SHA256Checksum, file.IsFolder, file.IsTrashed, file.TrashedAt, file.Starred, file.LastViewedAt, file.ViewedByMe, file.Version, file.RevisionID, file.IndexableText, file.ThumbnailLink, file.WebViewLink, file.WebContentLink, file.IconLink, file.ID,
 	)
@@ -242,26 +242,26 @@ func (r *dbRepository) UpdateFile(ctx context.Context, file *models.File) error 
 }
 
 func (r *dbRepository) DeleteFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `DELETE FROM files WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `DELETE FROM homecloud.files WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) SoftDeleteFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET is_trashed=true, trashed_at=NOW(), updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET is_trashed=true, trashed_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) RestoreFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET is_trashed=false, trashed_at=NULL, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET is_trashed=false, trashed_at=NULL WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, isTrashed, starred bool, limit, offset int, orderBy, orderDir string) ([]*models.File, int64, error) {
-	// Build base query
-	baseQuery := `FROM files WHERE owner_id=$1`
+	baseQuery := `FROM homecloud.files WHERE owner_id=$1`
 	args := []interface{}{ownerID}
 	argIndex := 2
 
+	// Добавляем фильтры
 	if parentID != "" {
 		baseQuery += fmt.Sprintf(" AND parent_id=$%d", argIndex)
 		args = append(args, parentID)
@@ -272,7 +272,7 @@ func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, 
 
 	if isTrashed {
 		baseQuery += fmt.Sprintf(" AND is_trashed=$%d", argIndex)
-		args = append(args, isTrashed)
+		args = append(args, true)
 		argIndex++
 	} else {
 		baseQuery += " AND is_trashed=false"
@@ -280,11 +280,11 @@ func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, 
 
 	if starred {
 		baseQuery += fmt.Sprintf(" AND starred=$%d", argIndex)
-		args = append(args, starred)
+		args = append(args, true)
 		argIndex++
 	}
 
-	// Get total count
+	// Подсчет общего количества
 	countQuery := `SELECT COUNT(*) ` + baseQuery
 	var total int64
 	err := r.db.QueryRowContext(ctx, countQuery, args...).Scan(&total)
@@ -292,20 +292,31 @@ func (r *dbRepository) ListFiles(ctx context.Context, parentID, ownerID string, 
 		return nil, 0, err
 	}
 
-	// Build order clause
-	if orderBy == "" {
-		orderBy = "created_at"
-	}
-	if orderDir == "" {
-		orderDir = "DESC"
-	}
-	orderClause := fmt.Sprintf(" ORDER BY %s %s", orderBy, orderDir)
+	// Получение файлов
+	selectQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link ` + baseQuery
 
-	// Get files
-	query := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link ` + baseQuery + orderClause + fmt.Sprintf(" LIMIT $%d OFFSET $%d", argIndex, argIndex+1)
-	args = append(args, limit, offset)
+	// Добавляем сортировку
+	if orderBy != "" {
+		selectQuery += fmt.Sprintf(" ORDER BY %s", orderBy)
+		if orderDir == "desc" {
+			selectQuery += " DESC"
+		}
+	} else {
+		selectQuery += " ORDER BY updated_at DESC"
+	}
 
-	rows, err := r.db.QueryContext(ctx, query, args...)
+	// Добавляем лимит и оффсет
+	if limit > 0 {
+		selectQuery += fmt.Sprintf(" LIMIT $%d", argIndex)
+		args = append(args, limit)
+		argIndex++
+	}
+	if offset > 0 {
+		selectQuery += fmt.Sprintf(" OFFSET $%d", argIndex)
+		args = append(args, offset)
+	}
+
+	rows, err := r.db.QueryContext(ctx, selectQuery, args...)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -380,7 +391,7 @@ func (r *dbRepository) ListTrashedFiles(ctx context.Context, ownerID string) ([]
 }
 
 func (r *dbRepository) SearchFiles(ctx context.Context, ownerID, query string) ([]*models.File, error) {
-	searchQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM files WHERE owner_id=$1 AND is_trashed=false AND (name ILIKE $2 OR indexable_text ILIKE $2) ORDER BY updated_at DESC`
+	searchQuery := `SELECT id, owner_id, parent_id, name, file_extension, mime_type, storage_path, size, md5_checksum, sha256_checksum, is_folder, is_trashed, trashed_at, starred, created_at, updated_at, last_viewed_at, viewed_by_me, version, revision_id, indexable_text, thumbnail_link, web_view_link, web_content_link, icon_link FROM homecloud.files WHERE owner_id=$1 AND is_trashed=false AND (name ILIKE $2 OR indexable_text ILIKE $2) ORDER BY updated_at DESC`
 	rows, err := r.db.QueryContext(ctx, searchQuery, ownerID, "%"+query+"%")
 	if err != nil {
 		return nil, err
@@ -442,17 +453,17 @@ func (r *dbRepository) SearchFiles(ctx context.Context, ownerID, query string) (
 
 func (r *dbRepository) GetFileSize(ctx context.Context, id string) (int64, error) {
 	var size int64
-	err := r.db.QueryRowContext(ctx, `SELECT size FROM files WHERE id=$1`, id).Scan(&size)
+	err := r.db.QueryRowContext(ctx, `SELECT size FROM homecloud.files WHERE id=$1`, id).Scan(&size)
 	return size, err
 }
 
 func (r *dbRepository) UpdateFileSize(ctx context.Context, id string, size int64) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET size=$1, updated_at=NOW() WHERE id=$2`, size, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET size=$1, updated_at=NOW() WHERE id=$2`, size, id)
 	return err
 }
 
 func (r *dbRepository) UpdateLastViewed(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET last_viewed_at=NOW(), viewed_by_me=true, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET last_viewed_at=NOW(), viewed_by_me=true, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
@@ -593,35 +604,29 @@ func (r *dbRepository) CheckPermission(ctx context.Context, fileID, userID, requ
 
 // File metadata operations
 func (r *dbRepository) UpdateFileMetadata(ctx context.Context, fileID, metadata string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET indexable_text=$1, updated_at=NOW() WHERE id=$2`, metadata, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET indexable_text=$1, updated_at=NOW() WHERE id=$2`, metadata, fileID)
 	return err
 }
 
 func (r *dbRepository) GetFileMetadata(ctx context.Context, fileID string) (string, error) {
-	var metadata sql.NullString
-	err := r.db.QueryRowContext(ctx, `SELECT indexable_text FROM files WHERE id=$1`, fileID).Scan(&metadata)
-	if err != nil {
-		return "", err
-	}
-	if metadata.Valid {
-		return metadata.String, nil
-	}
-	return "", nil
+	var metadata string
+	err := r.db.QueryRowContext(ctx, `SELECT indexable_text FROM homecloud.files WHERE id=$1`, fileID).Scan(&metadata)
+	return metadata, err
 }
 
 // File operations (star, move, copy, rename)
 func (r *dbRepository) StarFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET starred=true, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET starred=true, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) UnstarFile(ctx context.Context, id string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET starred=false, updated_at=NOW() WHERE id=$1`, id)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET starred=false, updated_at=NOW() WHERE id=$1`, id)
 	return err
 }
 
 func (r *dbRepository) MoveFile(ctx context.Context, fileID, newParentID string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET parent_id=$1, updated_at=NOW() WHERE id=$2`, newParentID, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET parent_id=$1, updated_at=NOW() WHERE id=$2`, newParentID, fileID)
 	return err
 }
 
@@ -655,15 +660,14 @@ func (r *dbRepository) CopyFile(ctx context.Context, fileID, newParentID, newNam
 }
 
 func (r *dbRepository) RenameFile(ctx context.Context, fileID, newName string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE files SET name=$1, updated_at=NOW() WHERE id=$2`, newName, fileID)
+	_, err := r.db.ExecContext(ctx, `UPDATE homecloud.files SET name=$1, updated_at=NOW() WHERE id=$2`, newName, fileID)
 	return err
 }
 
 // File integrity operations
 func (r *dbRepository) VerifyFileIntegrity(ctx context.Context, id string) (bool, error) {
-	// Простая реализация - проверяем наличие файла
 	var exists bool
-	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM files WHERE id=$1)`, id).Scan(&exists)
+	err := r.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM homecloud.files WHERE id=$1)`, id).Scan(&exists)
 	return exists, err
 }
 
