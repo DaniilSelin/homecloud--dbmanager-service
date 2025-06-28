@@ -19,11 +19,11 @@ func NewDBRepository(db *sql.DB) interfaces.DBRepository {
 }
 
 func (r *dbRepository) CreateUser(ctx context.Context, user *models.User) (string, error) {
-	query := `INSERT INTO homecloud.users (email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,NOW(),NOW(),$9,$10,$11) RETURNING id`
+	query := `INSERT INTO homecloud.users (id, email, username, password_hash, is_active, is_email_verified, role, storage_quota, used_space, created_at, updated_at, failed_login_attempts, locked_until, last_login_at)
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW(),NOW(),$10,$11,$12) RETURNING id`
 	var id string
 	err := r.db.QueryRowContext(ctx, query,
-		user.Email, user.Username, user.PasswordHash, user.IsActive, user.IsEmailVerified, user.Role, user.StorageQuota, user.UsedSpace, user.FailedLoginAttempts, user.LockedUntil, user.LastLogin,
+		user.ID, user.Email, user.Username, user.PasswordHash, user.IsActive, user.IsEmailVerified, user.Role, user.StorageQuota, user.UsedSpace, user.FailedLoginAttempts, user.LockedUntil, user.LastLogin,
 	).Scan(&id)
 	return id, err
 }
@@ -578,9 +578,28 @@ func (r *dbRepository) DeletePermission(ctx context.Context, id string) error {
 }
 
 func (r *dbRepository) CheckPermission(ctx context.Context, fileID, userID, requiredRole string) (bool, error) {
-	query := `SELECT EXISTS(SELECT 1 FROM homecloud.file_permissions WHERE file_id=$1 AND grantee_id=$2 AND role=$3)`
+	// Определяем иерархию ролей
+	var roleHierarchy string
+	switch requiredRole {
+	case "READER":
+		roleHierarchy = "'READER', 'COMMENTER', 'WRITER', 'FILE_OWNER', 'ORGANIZER', 'OWNER'"
+	case "COMMENTER":
+		roleHierarchy = "'COMMENTER', 'WRITER', 'FILE_OWNER', 'ORGANIZER', 'OWNER'"
+	case "WRITER":
+		roleHierarchy = "'WRITER', 'FILE_OWNER', 'ORGANIZER', 'OWNER'"
+	case "FILE_OWNER":
+		roleHierarchy = "'FILE_OWNER', 'ORGANIZER', 'OWNER'"
+	case "ORGANIZER":
+		roleHierarchy = "'ORGANIZER', 'OWNER'"
+	case "OWNER":
+		roleHierarchy = "'OWNER'"
+	default:
+		roleHierarchy = fmt.Sprintf("'%s'", requiredRole)
+	}
+
+	query := fmt.Sprintf(`SELECT EXISTS(SELECT 1 FROM homecloud.file_permissions WHERE file_id=$1 AND grantee_id=$2 AND role IN (%s))`, roleHierarchy)
 	var exists bool
-	err := r.db.QueryRowContext(ctx, query, fileID, userID, requiredRole).Scan(&exists)
+	err := r.db.QueryRowContext(ctx, query, fileID, userID).Scan(&exists)
 	return exists, err
 }
 

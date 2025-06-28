@@ -3,7 +3,7 @@ db:
   port: 5432
   user: "postgres"
   password: "changeme"
-  dbname: "homecloud_db"
+  dbname: "homecloud"
   sslmode: "disable"
 grpc:
   host: "0.0.0.0"
