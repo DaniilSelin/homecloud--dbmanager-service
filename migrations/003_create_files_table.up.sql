@@ -59,7 +59,3 @@ CREATE INDEX idx_files_created_at ON homecloud.files(created_at);
 CREATE INDEX idx_files_updated_at ON homecloud.files(updated_at);
 CREATE INDEX idx_files_name ON homecloud.files(name);
 CREATE INDEX idx_files_mime_type ON homecloud.files(mime_type);
-
--- Уникальный индекс для предотвращения дублирования файлов в одной папке
-CREATE UNIQUE INDEX idx_files_unique_name_parent ON homecloud.files(name, parent_id) WHERE parent_id IS NOT NULL;
-CREATE UNIQUE INDEX idx_files_unique_name_root ON homecloud.files(name) WHERE parent_id IS NULL; 
